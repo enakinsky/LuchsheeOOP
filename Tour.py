@@ -82,7 +82,5 @@ class Tour(BriefTour):
             'climat': self.climat
         }, ensure_ascii=False)
 
-    def __str__(self):
-        return f"tour(tourId={self.tour_id}, name='{self.name}', description='{self.description}', price={self.price}, duration={self.duration}, climat='{self.climat}')"
 
 
