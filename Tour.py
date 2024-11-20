@@ -14,7 +14,7 @@ class BriefTour:
     def __hash__(self):
         return hash((self.tour_id, self.name, self.price))
 
-class Tour:
+class Tour(BriefTour):
     def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0), duration: int = 0, climat: str = ""):
         super().__init__(tour_id, name, price)
         self.description = description
