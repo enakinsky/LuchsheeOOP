@@ -1,4 +1,20 @@
-class Tour(BriefTour):
+class BriefTour:
+    def __init__(self, tour_id: int, name: str, price: Decimal):
+        self.tour_id = tour_id
+        self.name = name
+        self.price = price
+
+    def __eq__(self, other):
+        if not isinstance(other, Brieftour):
+            return False
+        return (self.tour_id == other.tour_id and
+                self.name == other.name and
+                self.price == other.price)
+
+    def __hash__(self):
+        return hash((self.tour_id, self.name, self.price))
+
+class Tour:
     def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0), duration: int = 0, climat: str = ""):
         super().__init__(tour_id, name, price)
         self.description = description
