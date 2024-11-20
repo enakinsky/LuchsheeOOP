@@ -124,5 +124,36 @@ class Reservation:
         return (f"Reservation(client={self.client}, tour={self.tour}, final_price={self.final_price}, "
                 f"discount={self.discount}, Date={self.date})")
 
+if __name__ == "__main__":
+    try:
+        tour = tour.create_new_tour(
+            name="Золотое кольцо Абхазии",
+            description="Однодневная экскурсия по всем достопримечательностям",
+            price=Decimal("2000.00"),
+            duration=5,
+            climat="Субтропики"
+        )
+        client = Client(
+            first_name="Иван",
+            last_name="Иванов",
+            middle_name="Иванович",
+            phone_number="79991112233",
+            address="ул. Стасова, д.10"
+        )
+
+        reservation = Reservation(
+            client=client,
+            tour=tour,
+            final_price=Decimal("12000.00"),
+            discount=Decimal("500.00"),
+            date=date(2023, 12, 31)
+        )
+        # print(client)
+        print(tour)
+        # print(loan)
+
+    except ValueError as e:
+        print("Error:", e)
+
 
 
