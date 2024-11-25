@@ -103,30 +103,6 @@ class Tour(BriefTour):
     def __str__(self):
         return f"tour(tourId={self.tour_id}, name='{self.name}', description='{self.description}', price={self.price}, duration={self.duration}, climat='{self.climat}')"
 
-class Client:
-    def __init__(self, first_name: str, last_name: str, middle_name: str, phone_number: str, address: str):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.middle_name = middle_name
-        self.phone_number = phone_number
-        self.address = address
-
-    def __str__(self):
-        return f"Client(firstName='{self.first_name}', lastName='{self.last_name}', middleName='{self.middle_name}', phoneNumber='{self.phone_number}', address='{self.address}')"
-
-
-class Reservation:
-    def __init__(self, client: Client, tour: tour, loan_amount: Decimal, commission: Decimal, return_date: date):
-        self.client = client
-        self.tour = tour
-        self.final_price = final_price
-        self.discount = discount
-        self.date = date
-
-    def __str__(self):
-        return (f"Reservation(client={self.client}, tour={self.tour}, final_price={self.final_price}, "
-                f"discount={self.discount}, Date={self.date})")
-
 if __name__ == "__main__":
     try:
         tour = tour.create_new_tour(
