@@ -6,8 +6,6 @@ from datetime import date
 class BriefTour:
     def __init__(self, tour_id: int, name: str, price: Decimal):
         self.tour_id = tour_id
-        self.name = name
-        self.price = price
 
     def __eq__(self, other):
         if not isinstance(other, Brieftour):
