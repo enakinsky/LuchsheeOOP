@@ -17,7 +17,9 @@ class BriefTour:
 
 class Tour(BriefTour):
     def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0), duration: int = 0, climat: str = ""):
-        super().__init__(tour_id, name, price)
+        super().__init__(tour_id)
+        self.name = name
+        self.price = price
         self.description = description
         self.duration = duration
         self.climat = climat
