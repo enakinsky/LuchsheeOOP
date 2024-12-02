@@ -3,22 +3,25 @@ import json
 from decimal import Decimal
 from datetime import date
 
+
 class BriefTour:
     def __init__(self, tour_id: int, name: str, price: int):
-        self.tour_id = tour_id
-        self.name = name
-        self.price = price
+        self._tour_id = tour_id
+        self._name = name
+        self._price = price
 
     def __eq__(self, other):
-        if not isinstance(other, Brieftour):
+        if not isinstance(other, BriefTour):
             return False
-        return (self.tour_id == other.tour_id and self.name == other.name and self.price == other.price)
+        return (self.name == other.name)
 
     def __hash__(self):
         return hash((self.tour_id))
 
+
 class Tour(BriefTour):
-    def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0), duration: int = 0, climat: str = ""):
+    def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0),
+                 duration: int = 0, climat: str = ""):
         super().__init__(tour_id, name, price)
         self.description = description
         self.duration = duration
@@ -40,8 +43,8 @@ class Tour(BriefTour):
 
     @duration.setter
     def duration(self, value: int):
-        if not isinstance(value, int) or value < 0:
-            raise ValueError("Duration must be a non-negative integer.")
+        if not isinstance(value, int) or value < 1:
+            raise ValueError("Duration must be a non-negative integer and not 0.")
         self._duration = value
 
     @property
@@ -59,7 +62,8 @@ class Tour(BriefTour):
         return cls(name=name, description=description, price=price, duration=duration, climat=climat)
 
     @classmethod
-    def update_existing_tour(cls, tour_id: int, name: str, description: str, price: Decimal, duration: int, climat: str):
+    def update_existing_tour(cls, tour_id: int, name: str, description: str, price: Decimal, duration: int,
+                             climat: str):
         return cls(tour_id=tour_id, name=name, description=description, price=price, duration=duration, climat=climat)
 
     @classmethod
@@ -100,24 +104,22 @@ class Tour(BriefTour):
             'duration': self.duration,
             'climat': self.climat
         }, ensure_ascii=False)
+
     def __str__(self):
-        return f"tour(tourId={self.tour_id}, name='{self.name}', description='{self.description}', price={self.price}, duration={self.duration}, climat='{self.climat}')"
+        return f"tour(tourId={self._tour_id}, name='{self._name}', description='{self.description}', price={self._price}, duration={self.duration}, climat='{self.climat}')"
+
 
 if __name__ == "__main__":
     try:
-        tour = tour.create_new_tour(
+        tour = Tour.create_new_tour(
             name="Золотое кольцо Абхазии",
             description="Однодневная экскурсия по всем достопримечательностям",
             price=Decimal("2000.00"),
             duration=5,
             climat="Субтропики"
         )
-       
 
         print(tour)
 
     except ValueError as e:
         print("Error:", e)
-
-
-
