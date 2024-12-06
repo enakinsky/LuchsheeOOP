@@ -6,9 +6,39 @@ from datetime import date
 
 class BriefTour:
     def __init__(self, tour_id: int, name: str, price: int):
-        self._tour_id = tour_id
-        self._name = name
-        self._price = price
+        self.tour_id = tour_id
+        self.name = name
+        self.price = price
+
+    @property
+    def tour_id(self):
+        return self._tour_id
+
+    @tour_id.setter
+    def tour_id(self, value: int):
+        if not isinstance(value, int) or value < 0:
+            raise ValueError("Id must be a non-negative integer.")
+        self._tour_id = value
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        if not isinstance(value, str) or not value:
+            raise ValueError("Name must be a non-empty string.")
+        self._name = value
+
+    @property
+    def tour_id(self):
+        return self._tour_id
+
+    @price.setter
+    def price(self, value: int):
+        if not isinstance(value, int) or value < 0:
+            raise ValueError("Price must be a non-negative integer.")
+        self._price = value
 
     def __eq__(self, other):
         if not isinstance(other, BriefTour):
@@ -106,7 +136,7 @@ class Tour(BriefTour):
         }, ensure_ascii=False)
 
     def __str__(self):
-        return f"tour(tourId={self._tour_id}, name='{self._name}', description='{self.description}', price={self._price}, duration={self.duration}, climat='{self.climat}')"
+        return f"tour(tourId={self.tour_id}, name='{self.name}', description='{self.description}', price={self.price}, duration={self.duration}, climat='{self.climat}')"
 
 
 if __name__ == "__main__":
