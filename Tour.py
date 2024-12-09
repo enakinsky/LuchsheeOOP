@@ -2,10 +2,11 @@
 import json
 from decimal import Decimal
 from datetime import date
+import re
 
 
 class BriefTour:
-    def __init__(self, tour_id: int, name: str, price: int):
+    def __init__(self, tour_id: int = 0, name: str, price: int):
         self.tour_id = tour_id
         self.name = name
         self.price = price
@@ -26,8 +27,8 @@ class BriefTour:
 
     @name.setter
     def name(self, value: str):
-        if not isinstance(value, str) or not value:
-            raise ValueError("Name must be a non-empty string.")
+        if not isinstance(value, str) or not re.fullmatch(r"[\w\s'-]+", value): 
+           raise ValueError("Name must contain at least one letter.")
         self._name = value
 
     @property
@@ -44,9 +45,6 @@ class BriefTour:
         if not isinstance(other, BriefTour):
             return False
         return (self.name == other.name)
-
-    def __hash__(self):
-        return hash((self.tour_id))
 
 
 class Tour(BriefTour):
