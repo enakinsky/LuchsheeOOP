@@ -1,12 +1,11 @@
 # --*-- encoding: cp1251 --*--
 import json
-from decimal import Decimal
 from datetime import date
 import re
 
 
 class BriefTour:
-    def __init__(self, tour_id: int = 0, name: str, price: int):
+    def __init__(self, tour_id: int = 0, name: str = "", price: int = 10):
         self.tour_id = tour_id
         self.name = name
         self.price = price
@@ -27,12 +26,12 @@ class BriefTour:
 
     @name.setter
     def name(self, value: str):
-        if not isinstance(value, str) or not re.fullmatch(r"[\w\s'-]+", value): 
+        if not isinstance(value, str): 
            raise ValueError("Name must contain at least one letter.")
         self._name = value
 
     @property
-    def tour_id(self):
+    def price(self):
         return self._tour_id
 
     @price.setter
@@ -48,7 +47,7 @@ class BriefTour:
 
 
 class Tour(BriefTour):
-    def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: Decimal = Decimal(0),
+    def __init__(self, tour_id: int = 0, name: str = "", description: str = "", price: int = 0,
                  duration: int = 0, climat: str = ""):
         super().__init__(tour_id, name, price)
         self.description = description
@@ -86,11 +85,11 @@ class Tour(BriefTour):
         self._climat = value
 
     @classmethod
-    def create_new_tour(cls, name: str, description: str, price: Decimal, duration: int, climat: str):
+    def create_new_tour(cls, name: str, description: str, price: int, duration: int, climat: str):
         return cls(name=name, description=description, price=price, duration=duration, climat=climat)
 
     @classmethod
-    def update_existing_tour(cls, tour_id: int, name: str, description: str, price: Decimal, duration: int,
+    def update_existing_tour(cls, tour_id: int, name: str, description: str, price: int, duration: int,
                              climat: str):
         return cls(tour_id=tour_id, name=name, description=description, price=price, duration=duration, climat=climat)
 
@@ -104,7 +103,7 @@ class Tour(BriefTour):
                 tour_id=int(parts[0].strip()),
                 name=parts[1].strip(),
                 description=parts[2].strip(),
-                price=Decimal(parts[3].strip()),
+                price=int(parts[3].strip()),
                 duration=int(parts[4].strip()),
                 climat=parts[5].strip()
             )
@@ -118,7 +117,7 @@ class Tour(BriefTour):
             tour_id=data['tour_id'],
             name=data['name'],
             description=data['description'],
-            price=Decimal(data['price']),
+            price=int(data['price']),
             duration=data['duration'],
             climat=data['climat']
         )
@@ -139,15 +138,15 @@ class Tour(BriefTour):
 
 if __name__ == "__main__":
     try:
-        tour = Tour.create_new_tour(
+        tour1 = Tour.create_new_tour(
             name="Золотое кольцо Абхазии",
             description="Однодневная экскурсия по всем достопримечательностям",
-            price=Decimal("2000.00"),
+            price=2000,
             duration=5,
             climat="Субтропики"
         )
-
-        print(tour)
+        tour1.name = "qwe1"
+        print(tour1)
 
     except ValueError as e:
         print("Error:", e)
