@@ -45,6 +45,7 @@ new_tour = Tour.create_new_tour(
             price=2000,
             duration=5,
             climat="Субтропики"
+            tour_code="5890000"
         )
 
 
